@@ -31,12 +31,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: `${vehicle.year} ${vehicle.make} ${vehicle.model}`,
       description: vehicle.description,
       images: [shareImage.url]
-    },
-    other: {
-      "og:image:secure_url": shareImage.url,
-      "og:image:type": shareImage.type,
-      "og:image:width": String(shareImage.width),
-      "og:image:height": String(shareImage.height)
     }
   };
 }

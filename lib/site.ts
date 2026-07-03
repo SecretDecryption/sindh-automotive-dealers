@@ -16,7 +16,7 @@ export const siteUrl = withProtocol(
 );
 
 export const shareImage = {
-  url: `${siteUrl}/sindh-share-preview-v3.jpg?v=20260703`,
+  url: `${siteUrl}/sindh-share-preview-v4.jpg`,
   width: 1200,
   height: 630,
   alt: "Sindh Automotive Dealers logo",

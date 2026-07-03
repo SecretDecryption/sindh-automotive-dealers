@@ -19,14 +19,14 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-[calc(100vh-73px)] overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-x-4 top-10 flex justify-center lg:inset-y-0 lg:left-auto lg:right-0 lg:top-0 lg:w-[58%] lg:items-center">
+        <div className="pointer-events-none absolute inset-x-4 top-8 flex justify-center lg:inset-y-0 lg:left-auto lg:right-8 lg:top-0 lg:w-[50%] lg:items-center">
           <Image
             src="/sindh-logo.png"
             alt=""
             width={1033}
             height={421}
             priority
-            className="w-[min(86vw,520px)] object-contain opacity-85 lg:w-[min(52vw,760px)]"
+            className="w-[min(78vw,430px)] object-contain opacity-80 sm:w-[min(72vw,500px)] lg:w-[min(42vw,620px)]"
           />
         </div>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/20 via-white/88 to-white lg:bg-gradient-to-r lg:from-white lg:via-white/95 lg:to-white/20" />

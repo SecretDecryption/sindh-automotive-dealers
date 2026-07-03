@@ -30,3 +30,9 @@ pnpm start
 Before forms can send real emails on Vercel, add the Resend environment variables listed in `FORM_SETUP.md`.
 
 Text messages are optional. Do not add Twilio variables unless you want to activate paid SMS confirmations.
+
+When your real domain is connected, add this Vercel environment variable and redeploy:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://sindhautomotive.ca
+```

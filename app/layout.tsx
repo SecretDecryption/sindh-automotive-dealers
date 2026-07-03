@@ -26,12 +26,6 @@ export const metadata: Metadata = {
     title: "Sindh Automotive Dealers",
     description: "Quality pre-owned vehicles and confident dealership service.",
     images: [shareImage.url]
-  },
-  other: {
-    "og:image:secure_url": shareImage.url,
-    "og:image:type": shareImage.type,
-    "og:image:width": String(shareImage.width),
-    "og:image:height": String(shareImage.height)
   }
 };
 
