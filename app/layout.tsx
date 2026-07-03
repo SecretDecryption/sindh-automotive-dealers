@@ -3,17 +3,10 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
-import { dealer } from "@/lib/dealer";
-
-const shareImage = {
-  url: "/og-image.png",
-  width: 1200,
-  height: 630,
-  alt: "Sindh Automotive Dealers logo"
-};
+import { shareImage, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(dealer.website),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Sindh Automotive Dealers | Quality Pre-Owned Vehicles",
     template: "%s | Sindh Automotive Dealers"
@@ -22,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sindh Automotive Dealers",
     description: "Quality inspected pre-owned vehicles, financing, and test drives.",
-    url: dealer.website,
+    url: siteUrl,
     siteName: "Sindh Automotive Dealers",
     images: [shareImage],
     locale: "en_CA",
@@ -33,6 +26,12 @@ export const metadata: Metadata = {
     title: "Sindh Automotive Dealers",
     description: "Quality pre-owned vehicles and confident dealership service.",
     images: [shareImage.url]
+  },
+  other: {
+    "og:image:secure_url": shareImage.url,
+    "og:image:type": shareImage.type,
+    "og:image:width": String(shareImage.width),
+    "og:image:height": String(shareImage.height)
   }
 };
 

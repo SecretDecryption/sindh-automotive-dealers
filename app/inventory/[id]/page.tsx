@@ -4,14 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CheckCircle2, Fuel, Gauge, Palette, Settings, Shield, Wrench } from "lucide-react";
 import { ContactForm } from "@/components/forms";
+import { shareImage } from "@/lib/site";
 import { formatCurrency, formatMileage, getVehicle, vehicles } from "@/lib/vehicles";
-
-const shareImage = {
-  url: "/og-image.png",
-  width: 1200,
-  height: 630,
-  alt: "Sindh Automotive Dealers logo"
-};
 
 export function generateStaticParams() {
   return vehicles.map((vehicle) => ({ id: vehicle.id }));
@@ -37,6 +31,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: `${vehicle.year} ${vehicle.make} ${vehicle.model}`,
       description: vehicle.description,
       images: [shareImage.url]
+    },
+    other: {
+      "og:image:secure_url": shareImage.url,
+      "og:image:type": shareImage.type,
+      "og:image:width": String(shareImage.width),
+      "og:image:height": String(shareImage.height)
     }
   };
 }
