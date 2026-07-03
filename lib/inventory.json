@@ -16,8 +16,15 @@
     "description": "Clean title, well maintained, and safety inspected. This Volkswagen Tiguan Comfortline offers all-wheel drive confidence, a practical cabin, and strong everyday value.",
     "features": ["Backup Camera", "Heated Seats", "Leather Seats", "Alloy Wheels", "Panoramic Roof"],
     "images": [
-      "/vehicles/volkswagen-tiguan-2012/front.jpg",
-      "/vehicles/volkswagen-tiguan-2012/interior-door.jpg"
+      "/vehicles/volkswagen-tiguan-2012/01-front-facing.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/02-front-angle.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/03-front-side.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/04-rear-angle.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/05-front-interior.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/06-rear-seat.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/07-cargo.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/08-dashboard.jpeg",
+      "/vehicles/volkswagen-tiguan-2012/09-engine-bay.jpeg"
     ]
   },
   {
@@ -38,8 +45,15 @@
     "description": "Clean Carfax, well maintained, and safety inspected. This Nissan Pathfinder SL is a practical 7-passenger SUV with 4WD capability and family-ready comfort.",
     "features": ["7 Passenger Seating", "Backup Camera", "Navigation", "Leatherette Seats", "Heated Seats", "Safety Inspected"],
     "images": [
-      "/vehicles/nissan-pathfinder-2014/engine-front.jpg",
-      "/vehicles/nissan-pathfinder-2014/interior-front.jpg"
+      "/vehicles/nissan-pathfinder-2014/01-front-facing.jpeg",
+      "/vehicles/nissan-pathfinder-2014/02-front-angle.jpeg",
+      "/vehicles/nissan-pathfinder-2014/03-front-side.jpeg",
+      "/vehicles/nissan-pathfinder-2014/04-rear-facing.jpeg",
+      "/vehicles/nissan-pathfinder-2014/05-rear-angle.jpeg",
+      "/vehicles/nissan-pathfinder-2014/06-front-interior.jpeg",
+      "/vehicles/nissan-pathfinder-2014/07-dashboard.jpeg",
+      "/vehicles/nissan-pathfinder-2014/08-backup-camera.jpeg",
+      "/vehicles/nissan-pathfinder-2014/engine-front.jpg"
     ]
   },
   {
@@ -60,10 +74,15 @@
     "description": "Clean title and safety inspected. This Mazda3 is an affordable compact sedan with automatic transmission, efficient gasoline power, and practical daily-driver value.",
     "features": ["Heated Front Seats", "Automatic Transmission", "Fuel Efficient", "Safety Inspected"],
     "images": [
-      "/vehicles/mazda-mazda3-2013/front-angle.jpg",
-      "/vehicles/mazda-mazda3-2013/front.jpg",
-      "/vehicles/mazda-mazda3-2013/interior.jpg",
-      "/vehicles/mazda-mazda3-2013/engine.jpg"
+      "/vehicles/mazda-mazda3-2013/01-front-facing.jpeg",
+      "/vehicles/mazda-mazda3-2013/02-front-angle.jpeg",
+      "/vehicles/mazda-mazda3-2013/03-rear-angle.jpeg",
+      "/vehicles/mazda-mazda3-2013/04-rear-side.jpeg",
+      "/vehicles/mazda-mazda3-2013/05-front-interior.jpeg",
+      "/vehicles/mazda-mazda3-2013/06-rear-seat.jpeg",
+      "/vehicles/mazda-mazda3-2013/07-trunk.jpeg",
+      "/vehicles/mazda-mazda3-2013/08-dashboard.jpeg",
+      "/vehicles/mazda-mazda3-2013/09-engine-bay.jpeg"
     ]
   }
 ]
