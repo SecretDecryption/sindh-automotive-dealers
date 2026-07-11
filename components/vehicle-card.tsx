@@ -5,6 +5,8 @@ import type { Vehicle } from "@/lib/types";
 import { formatCurrency, formatMileage } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle, featured = false }: { vehicle: Vehicle; featured?: boolean }) {
+  const conditionLabel = vehicle.priceNote?.toLowerCase().includes("as-is") ? "As-Is" : "Inspected";
+
   return (
     <article className="group overflow-hidden rounded-lg border border-black/10 bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-luxury dark:border-white/10 dark:bg-zinc-950">
       <div className="relative aspect-[16/10] overflow-hidden bg-zinc-200">
@@ -16,7 +18,7 @@ export function VehicleCard({ vehicle, featured = false }: { vehicle: Vehicle; f
           className="object-cover transition duration-500 group-hover:scale-105"
         />
         <div className="absolute left-4 top-4 rounded-md bg-white/90 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-ink backdrop-blur">
-          Inspected
+          {conditionLabel}
         </div>
       </div>
       <div className="p-5">

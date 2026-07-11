@@ -23,5 +23,16 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "CLICK-OPEN-*",
+    "CLICK-OPEN-*/**/*",
+    "Sindh-upload-*",
+    "Sindh-upload-*/**/*",
+    "GITHUB-UPLOAD-*",
+    "GITHUB-UPLOAD-*/**/*",
+    "upload-this-*",
+    "upload-this-*/**/*"
+  ]
 }

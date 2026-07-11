@@ -5,6 +5,7 @@ export type Vehicle = {
   model: string;
   price: number;
   priceNote?: string;
+  badge?: string;
   mileage: number;
   transmission: "Automatic" | "Manual";
   fuelType: string;
