@@ -10,7 +10,6 @@ import { dealer } from "@/lib/dealer";
 const links = [
   { href: "/", label: "Home" },
   { href: "/inventory", label: "Inventory" },
-  { href: "/financing", label: "Financing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" }
 ];

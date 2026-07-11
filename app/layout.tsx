@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Shop quality pre-owned vehicles with confidence at Sindh Automotive Dealers.",
   openGraph: {
     title: "Sindh Automotive Dealers",
-    description: "Quality inspected pre-owned vehicles, financing, and test drives.",
+    description: "Quality inspected pre-owned vehicles and test drives.",
     url: siteUrl,
     siteName: "Sindh Automotive Dealers",
     images: [shareImage],

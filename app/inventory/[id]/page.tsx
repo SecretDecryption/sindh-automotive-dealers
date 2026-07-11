@@ -79,12 +79,9 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
             </h1>
             <p className="mt-4 text-4xl font-black text-racing">{formatCurrency(vehicle.price)}</p>
             {vehicle.priceNote ? <p className="mt-2 text-sm font-bold text-zinc-500 dark:text-zinc-400">{vehicle.priceNote}</p> : null}
-            <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               <Link href={`/booking?vehicle=${vehicle.id}`} className="rounded-md bg-racing px-5 py-3 text-center text-sm font-black text-white shadow-card transition hover:bg-red-700">
                 Book Test Drive
-              </Link>
-              <Link href="/financing" className="rounded-md bg-ink px-5 py-3 text-center text-sm font-black text-white transition hover:bg-zinc-800 dark:bg-white dark:text-ink">
-                Apply For Financing
               </Link>
               <Link href="/contact" className="rounded-md border border-black/15 px-5 py-3 text-center text-sm font-black text-ink transition hover:border-racing hover:text-racing dark:border-white/15 dark:text-white">
                 Contact Dealer

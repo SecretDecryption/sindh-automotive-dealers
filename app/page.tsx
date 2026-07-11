@@ -79,7 +79,7 @@ export default function Home() {
             <p className="text-sm font-black uppercase tracking-[0.2em] text-racing">Visit Us</p>
             <h2 className="mt-3 text-3xl font-black text-ink sm:text-4xl dark:text-white">Explore Inventory In Person</h2>
             <p className="mt-4 leading-7 text-zinc-600 dark:text-zinc-300">
-              Stop by our Brantford showroom for a walkaround, appraisal, financing consultation, or scheduled test drive.
+              Stop by our Brantford showroom for a walkaround, vehicle questions, or scheduled test drive.
             </p>
           </div>
           <MapEmbed />

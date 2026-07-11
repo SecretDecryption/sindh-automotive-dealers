@@ -6,7 +6,7 @@ import { dealer } from "@/lib/dealer";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact Sindh Automotive Dealers for inventory, financing, and test drives."
+  description: "Contact Sindh Automotive Dealers for inventory questions and test drives."
 };
 
 export default function ContactPage() {

@@ -9,7 +9,7 @@ type SendEmailInput = {
   replyTo?: string;
 };
 
-type LeadCategory = "contact" | "financing" | "vehicle-inquiry";
+type LeadCategory = "contact" | "vehicle-inquiry";
 
 type LeadInput = {
   category: LeadCategory;
@@ -191,17 +191,14 @@ export async function notifyTestDriveBooking(input: BookingNotificationInput) {
 export async function notifyLead(input: LeadInput) {
   const subjectByCategory: Record<LeadCategory, string> = {
     contact: `Appointment Booked By ${input.name}`,
-    financing: `Financing Application By ${input.name}`,
     "vehicle-inquiry": `Vehicle Inquiry By ${input.name}`
   };
   const titleByCategory: Record<LeadCategory, string> = {
     contact: "Appointment Request Received",
-    financing: "Financing Application Received",
     "vehicle-inquiry": "Vehicle Inquiry Received"
   };
   const introByCategory: Record<LeadCategory, string> = {
     contact: "A customer contacted the dealership through the website.",
-    financing: "A customer submitted a financing application through the website.",
     "vehicle-inquiry": "A customer asked about a specific vehicle through the website."
   };
 

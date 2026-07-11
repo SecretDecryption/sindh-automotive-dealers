@@ -17,7 +17,6 @@ export function Footer() {
           <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-zinc-300">Explore</h3>
           <div className="grid gap-3 text-sm text-zinc-400">
             <Link href="/inventory" className="hover:text-white">Inventory</Link>
-            <Link href="/financing" className="hover:text-white">Financing</Link>
             <Link href="/booking" className="hover:text-white">Book Test Drive</Link>
             <Link href="/contact" className="hover:text-white">Contact Dealer</Link>
           </div>

@@ -191,7 +191,7 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
   );
 }
 
-async function submitLead(event: React.FormEvent<HTMLFormElement>, category: "contact" | "financing" | "vehicle-inquiry") {
+async function submitLead(event: React.FormEvent<HTMLFormElement>, category: "contact" | "vehicle-inquiry") {
   const formData = new FormData(event.currentTarget);
   const payload = { ...Object.fromEntries(formData.entries()), category };
 
@@ -249,43 +249,6 @@ export function ContactForm({
       <TextArea label="Message" name="message" placeholder="Tell us what you are looking for." />
       <FormMessage status={status} message={message} />
       <SubmitButton disabled={status === "loading"}>{status === "loading" ? "Sending..." : "Contact Dealer"}</SubmitButton>
-    </form>
-  );
-}
-
-export function FinanceForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus("loading");
-    setMessage("");
-
-    try {
-      await submitLead(event, "financing");
-      setStatus("success");
-      setMessage("Your financing application was sent. Our team will contact you shortly.");
-      event.currentTarget.reset();
-    } catch (error) {
-      setStatus("error");
-      setMessage(error instanceof Error ? error.message : "This application could not be sent. Please try again.");
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="grid gap-5 rounded-lg border border-black/10 bg-white p-5 shadow-card dark:border-white/10 dark:bg-zinc-950">
-      <div className="grid gap-5 md:grid-cols-2">
-        <TextInput label="Full Name" name="name" />
-        <TextInput label="Phone" name="phone" />
-        <TextInput label="Email" name="email" type="email" />
-        <TextInput label="Monthly Budget" name="budget" placeholder="$650" />
-        <TextInput label="Employment Status" name="employment" />
-        <TextInput label="Estimated Credit Score" name="credit" />
-      </div>
-      <TextArea label="Vehicle Interest" name="vehicleInterest" placeholder="Which vehicle or body style are you considering?" />
-      <FormMessage status={status} message={message} />
-      <SubmitButton disabled={status === "loading"}>{status === "loading" ? "Sending..." : "Apply For Financing"}</SubmitButton>
     </form>
   );
 }

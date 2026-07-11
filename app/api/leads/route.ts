@@ -3,9 +3,9 @@ import { notifyLead } from "@/lib/notifications";
 
 export const runtime = "nodejs";
 
-type LeadCategory = "contact" | "financing" | "vehicle-inquiry";
+type LeadCategory = "contact" | "vehicle-inquiry";
 
-const validCategories = new Set<LeadCategory>(["contact", "financing", "vehicle-inquiry"]);
+const validCategories = new Set<LeadCategory>(["contact", "vehicle-inquiry"]);
 
 export async function POST(request: Request) {
   const body = (await request.json()) as Record<string, string>;

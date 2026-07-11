@@ -16,7 +16,7 @@ export default function AboutPage() {
             <p className="text-sm font-black uppercase tracking-[0.2em] text-racing">About Us</p>
             <h1 className="mt-3 text-4xl font-black text-ink sm:text-5xl dark:text-white">A Premium Dealership Experience Built On Trust</h1>
             <p className="mt-5 leading-7 text-zinc-600 dark:text-zinc-300">
-              Sindh Automotive Dealers was founded to make pre-owned vehicle shopping feel refined, transparent, and genuinely helpful. We curate quality vehicles, inspect them carefully, and guide customers through inventory, financing, and ownership protection with professionalism.
+              Sindh Automotive Dealers was founded to make pre-owned vehicle shopping feel refined, transparent, and genuinely helpful. We curate quality vehicles, inspect them carefully, and guide customers through inventory questions, vehicle details, and test drive appointments with professionalism.
             </p>
             <p className="mt-4 leading-7 text-zinc-600 dark:text-zinc-300">
               Our mission is simple: connect drivers with dependable vehicles and make every step of the dealership visit feel clear and confident.
