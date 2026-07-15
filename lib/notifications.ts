@@ -37,6 +37,15 @@ type BookingNotificationInput = {
 const leadEmail = process.env.DEALER_LEAD_EMAIL ?? dealer.leadEmail;
 const fromEmail = process.env.FROM_EMAIL ?? "Sindh Automotive Dealers <onboarding@resend.dev>";
 
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 function row(label: string, value?: string) {
   if (!value) {
     return "";
@@ -44,8 +53,8 @@ function row(label: string, value?: string) {
 
   return `
     <tr>
-      <td style="padding:10px 12px;border-bottom:1px solid #ececec;color:#666;font-weight:700;width:180px;">${label}</td>
-      <td style="padding:10px 12px;border-bottom:1px solid #ececec;color:#111;">${value}</td>
+      <td style="padding:10px 12px;border-bottom:1px solid #ececec;color:#666;font-weight:700;width:180px;">${escapeHtml(label)}</td>
+      <td style="padding:10px 12px;border-bottom:1px solid #ececec;color:#111;">${escapeHtml(value).replaceAll("\n", "<br />")}</td>
     </tr>
   `;
 }
@@ -54,17 +63,17 @@ function emailLayout(title: string, intro: string, rows: string) {
   return `
     <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;background:#fff;color:#111;">
       <div style="background:#111;padding:24px;border-radius:8px 8px 0 0;">
-        <h1 style="margin:0;color:#fff;font-size:24px;">${title}</h1>
-        <p style="margin:8px 0 0;color:#d90429;font-weight:700;">${dealer.name}</p>
+        <h1 style="margin:0;color:#fff;font-size:24px;">${escapeHtml(title)}</h1>
+        <p style="margin:8px 0 0;color:#d90429;font-weight:700;">${escapeHtml(dealer.name)}</p>
       </div>
       <div style="border:1px solid #ececec;border-top:0;padding:24px;border-radius:0 0 8px 8px;">
-        <p style="margin:0 0 18px;line-height:1.6;color:#333;">${intro}</p>
+        <p style="margin:0 0 18px;line-height:1.6;color:#333;">${escapeHtml(intro)}</p>
         <table style="width:100%;border-collapse:collapse;background:#fafafa;border:1px solid #ececec;">
           ${rows}
         </table>
         <p style="margin:20px 0 0;color:#666;font-size:13px;line-height:1.5;">
-          ${dealer.address}<br />
-          ${dealer.phoneDisplay}
+          ${escapeHtml(dealer.address)}<br />
+          ${escapeHtml(dealer.phoneDisplay)}
         </p>
       </div>
     </div>
@@ -171,6 +180,7 @@ export async function notifyTestDriveBooking(input: BookingNotificationInput) {
   await sendEmail({
     to: input.email,
     subject: customerSubject,
+    replyTo: leadEmail,
     html: emailLayout(
       "Test Drive Request Received",
       `Hi ${input.name}, we received your test drive request. Our team will confirm availability before your visit.`,
@@ -225,6 +235,7 @@ export async function notifyLead(input: LeadInput) {
   await sendEmail({
     to: input.email,
     subject: `Sindh Automotive: ${titleByCategory[input.category]}`,
+    replyTo: leadEmail,
     html: emailLayout(
       titleByCategory[input.category],
       `Hi ${input.name}, we received your request. Our team will review it and contact you soon.`,

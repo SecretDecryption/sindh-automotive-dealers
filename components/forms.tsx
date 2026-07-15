@@ -7,6 +7,31 @@ import { vehicles } from "@/lib/vehicles";
 const inputClass =
   "w-full rounded-md border border-black/10 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-zinc-400 focus:border-racing focus:ring-4 focus:ring-racing/10 dark:border-white/10 dark:bg-zinc-950 dark:text-white";
 
+async function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit, timeoutMs = 15000) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
+async function readResponse<T>(response: Response): Promise<T> {
+  const text = await response.text();
+
+  if (!text) {
+    return {} as T;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return {} as T;
+  }
+}
+
 export function TextInput({ label, type = "text", name, placeholder }: { label: string; type?: string; name: string; placeholder?: string }) {
   return (
     <label className="grid gap-2 text-sm font-bold text-ink dark:text-white">
@@ -65,6 +90,8 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [bookedTimes, setBookedTimes] = useState<string[]>([]);
+  const [availabilityReady, setAvailabilityReady] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -76,19 +103,47 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
   useEffect(() => {
     setTime("");
     setMessage("");
+    setAvailabilityReady(false);
 
     if (!date) {
       setBookedTimes([]);
+      setCheckingAvailability(false);
       return;
     }
 
-    fetch(`/api/bookings?date=${date}`)
-      .then((response) => response.json())
-      .then((data: { bookedTimes?: string[] }) => setBookedTimes(data.bookedTimes ?? []))
-      .catch(() => {
+    let active = true;
+    setCheckingAvailability(true);
+
+    fetchWithTimeout(`/api/bookings?date=${date}`, undefined, 10000)
+      .then(async (response) => {
+        const data = await readResponse<{ bookedTimes?: string[]; error?: string }>(response);
+
+        if (!response.ok) {
+          throw new Error(data.error ?? "Availability could not be checked. Please try again.");
+        }
+
+        if (active) {
+          setBookedTimes(data.bookedTimes ?? []);
+          setAvailabilityReady(true);
+        }
+      })
+      .catch((error) => {
+        if (!active) {
+          return;
+        }
         setBookedTimes([]);
-        setMessage("Availability could not be checked. Please try again.");
+        setStatus("error");
+        setMessage(error instanceof Error && error.name !== "AbortError" ? error.message : "Availability is taking too long. Please try again or call (647) 267-9060.");
+      })
+      .finally(() => {
+        if (active) {
+          setCheckingAvailability(false);
+        }
       });
+
+    return () => {
+      active = false;
+    };
   }, [date]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -96,34 +151,37 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
     setStatus("loading");
     setMessage("");
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
-    const response = await fetch("/api/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    try {
+      const response = await fetchWithTimeout("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    const data = (await response.json()) as { error?: string };
+      const data = await readResponse<{ error?: string }>(response);
 
-    if (!response.ok) {
-      setStatus("error");
-      setMessage(data.error ?? "This booking could not be completed. Please choose another time.");
-      if (date) {
-        const availabilityResponse = await fetch(`/api/bookings?date=${date}`);
-        const availability = (await availabilityResponse.json()) as { bookedTimes?: string[] };
-        setBookedTimes(availability.bookedTimes ?? []);
+      if (!response.ok) {
+        throw new Error(data.error ?? "This booking could not be completed. Please choose another time.");
       }
-      return;
-    }
 
-    setStatus("success");
-    setMessage("Your test drive request is booked. Our team will confirm the details with you shortly.");
-    setBookedTimes((current) => [...current, time]);
-    event.currentTarget.reset();
-    setDate("");
-    setTime("");
+      setStatus("success");
+      setMessage("Your test drive request is booked. Check your email for confirmation details.");
+      setBookedTimes((current) => [...current, time]);
+      form.reset();
+      setDate("");
+      setTime("");
+    } catch (error) {
+      setStatus("error");
+      setMessage(
+        error instanceof Error && error.name !== "AbortError"
+          ? error.message
+          : "The booking request is taking too long. Please try again or call (647) 267-9060."
+      );
+    }
   }
 
   return (
@@ -147,8 +205,8 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
         </label>
         <label className="grid gap-2 text-sm font-bold text-ink dark:text-white">
           Preferred Time
-          <select className={inputClass} name="time" value={time} onChange={(event) => setTime(event.target.value)} disabled={!date || slots.length === 0} required>
-            <option value="">{date ? "Select an available time" : "Select a date first"}</option>
+          <select className={inputClass} name="time" value={time} onChange={(event) => setTime(event.target.value)} disabled={!date || !availabilityReady || slots.length === 0} required>
+            <option value="">{checkingAvailability ? "Checking available times..." : date ? "Select an available time" : "Select a date first"}</option>
             {slots.map((slot) => {
               const booked = bookedTimes.includes(slot);
               return (
@@ -160,8 +218,8 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
             })}
           </select>
           {date && hours.closed && <span className="text-xs font-semibold text-racing">{hours.reason}</span>}
-          {date && !hours.closed && availableSlots.length === 0 && <span className="text-xs font-semibold text-racing">All time slots are booked for this date.</span>}
-          {date && !hours.closed && availableSlots.length > 0 && (
+          {date && availabilityReady && !hours.closed && availableSlots.length === 0 && <span className="text-xs font-semibold text-racing">All time slots are booked for this date.</span>}
+          {date && availabilityReady && !hours.closed && availableSlots.length > 0 && (
             <span className="text-xs font-semibold text-zinc-500">
               Available appointment starts: {formatSlotLabel(slots[0])} - {formatSlotLabel(slots[slots.length - 1])}
             </span>
@@ -182,10 +240,10 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
       <FormMessage status={status} message={message} />
       <button
         type="submit"
-        disabled={status === "loading" || !date || !time || availableSlots.length === 0}
+        disabled={status === "loading" || !availabilityReady || !date || !time || availableSlots.length === 0}
         className="rounded-md bg-racing px-5 py-3 text-sm font-black text-white shadow-card transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-zinc-400"
       >
-        {status === "loading" ? "Checking Availability..." : "Book Test Drive"}
+        {status === "loading" ? "Booking Test Drive..." : "Book Test Drive"}
       </button>
     </form>
   );
@@ -195,13 +253,13 @@ async function submitLead(event: React.FormEvent<HTMLFormElement>, category: "co
   const formData = new FormData(event.currentTarget);
   const payload = { ...Object.fromEntries(formData.entries()), category };
 
-  const response = await fetch("/api/leads", {
+  const response = await fetchWithTimeout("/api/leads", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
 
-  const data = (await response.json()) as { error?: string };
+  const data = await readResponse<{ error?: string }>(response);
 
   if (!response.ok) {
     throw new Error(data.error ?? "This request could not be sent. Please try again.");

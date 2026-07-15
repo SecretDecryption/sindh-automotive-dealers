@@ -1,8 +1,8 @@
 export const dealer = {
   name: "Sindh Automotive Dealers",
   tagline: "Quality Pre-Owned Vehicles",
-  website: "https://sindhautomotive.ca/",
-  websiteLabel: "sindhautomotive.ca",
+  website: "https://www.sindhautomotivedealers.ca/",
+  websiteLabel: "sindhautomotivedealers.ca",
   leadEmail: "sindhautomotivedealer@gmail.com",
   phoneDisplay: "(647) 267-9060",
   phoneHref: "tel:+16472679060",
