@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
   description: "Shop quality pre-owned vehicles with confidence at Sindh Automotive Dealers.",
   openGraph: {
     title: "Sindh Automotive Dealers",
-    description: "Quality inspected pre-owned vehicles, financing, and test drives.",
+    description: "Quality inspected pre-owned vehicles and test drives.",
     url: siteUrl,
     siteName: "Sindh Automotive Dealers",
     images: [shareImage],
@@ -38,6 +40,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main>{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
