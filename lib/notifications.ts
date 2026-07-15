@@ -6,8 +6,11 @@ type SendEmailInput = {
   to: string;
   subject: string;
   html: string;
+  text: string;
   replyTo?: string;
 };
+
+type EmailField = [label: string, value?: string];
 
 type LeadCategory = "contact" | "vehicle-inquiry";
 
@@ -80,6 +83,24 @@ function emailLayout(title: string, intro: string, rows: string) {
   `;
 }
 
+function plainTextLayout(title: string, intro: string, fields: EmailField[]) {
+  const details = fields
+    .filter(([, value]) => Boolean(value))
+    .map(([label, value]) => `${label}: ${value}`)
+    .join("\n");
+
+  return `${title}
+${dealer.name}
+
+${intro}
+
+${details}
+
+${dealer.address}
+${dealer.phoneDisplay}
+${dealer.website}`;
+}
+
 export async function sendEmail(input: SendEmailInput) {
   if (!process.env.RESEND_API_KEY) {
     console.info(`[email skipped] ${input.subject} -> ${input.to}`);
@@ -97,6 +118,7 @@ export async function sendEmail(input: SendEmailInput) {
       to: input.to,
       subject: input.subject,
       html: input.html,
+      text: input.text,
       reply_to: input.replyTo
     })
   });
@@ -159,33 +181,35 @@ export async function notifyTestDriveBooking(input: BookingNotificationInput) {
   const vehicle = getVehicle(input.vehicle);
   const vehicleName = vehicle ? `${vehicle.year} ${vehicle.make} ${vehicle.model}` : input.vehicle;
   const formattedTime = formatSlotLabel(input.time);
-  const dealerSubject = `Test Drive Booked By ${input.name}`;
-  const customerSubject = `Your Sindh Automotive test drive request`;
+  const dealerSubject = `New Test Drive Booking - ${input.name}`;
+  const customerSubject = `Test Drive Confirmed - ${vehicleName}`;
 
-  const rows =
-    row("Customer", input.name) +
-    row("Phone", input.phone) +
-    row("Email", input.email) +
-    row("Vehicle", vehicleName) +
-    row("Date", input.date) +
-    row("Time", formattedTime);
+  const fields: EmailField[] = [
+    ["Customer", input.name],
+    ["Phone", input.phone],
+    ["Email", input.email],
+    ["Vehicle", vehicleName],
+    ["Date", input.date],
+    ["Time", formattedTime]
+  ];
+  const rows = fields.map(([label, value]) => row(label, value)).join("");
+  const dealerIntro = "A customer booked a test drive through the website.";
+  const customerIntro = `Hi ${input.name}, your test drive is confirmed. Please bring a valid driver's licence. If you need to make a change, call us at ${dealer.phoneDisplay}.`;
 
   await sendEmail({
     to: leadEmail,
     subject: dealerSubject,
     replyTo: input.email,
-    html: emailLayout(dealerSubject, "A customer booked a test drive through the website.", rows)
+    html: emailLayout(dealerSubject, dealerIntro, rows),
+    text: plainTextLayout(dealerSubject, dealerIntro, fields)
   });
 
   await sendEmail({
     to: input.email,
     subject: customerSubject,
     replyTo: leadEmail,
-    html: emailLayout(
-      "Test Drive Request Received",
-      `Hi ${input.name}, we received your test drive request. Our team will confirm availability before your visit.`,
-      rows
-    )
+    html: emailLayout("Test Drive Confirmed", customerIntro, rows),
+    text: plainTextLayout("Test Drive Confirmed", customerIntro, fields)
   });
 
   try {
@@ -213,23 +237,26 @@ export async function notifyLead(input: LeadInput) {
   };
 
   const subject = subjectByCategory[input.category];
-  const rows =
-    row("Customer", input.name) +
-    row("Phone", input.phone) +
-    row("Email", input.email) +
-    row("Preferred Contact Time", input.contactTime) +
-    row("Vehicle", input.vehicle) +
-    row("Monthly Budget", input.budget) +
-    row("Employment Status", input.employment) +
-    row("Estimated Credit Score", input.credit) +
-    row("Vehicle Interest", input.vehicleInterest) +
-    row("Message", input.message);
+  const fields: EmailField[] = [
+    ["Customer", input.name],
+    ["Phone", input.phone],
+    ["Email", input.email],
+    ["Preferred Contact Time", input.contactTime],
+    ["Vehicle", input.vehicle],
+    ["Monthly Budget", input.budget],
+    ["Employment Status", input.employment],
+    ["Estimated Credit Score", input.credit],
+    ["Vehicle Interest", input.vehicleInterest],
+    ["Message", input.message]
+  ];
+  const rows = fields.map(([label, value]) => row(label, value)).join("");
 
   await sendEmail({
     to: leadEmail,
     subject,
     replyTo: input.email,
-    html: emailLayout(subject, introByCategory[input.category], rows)
+    html: emailLayout(subject, introByCategory[input.category], rows),
+    text: plainTextLayout(subject, introByCategory[input.category], fields)
   });
 
   await sendEmail({
@@ -240,6 +267,11 @@ export async function notifyLead(input: LeadInput) {
       titleByCategory[input.category],
       `Hi ${input.name}, we received your request. Our team will review it and contact you soon.`,
       rows
+    ),
+    text: plainTextLayout(
+      titleByCategory[input.category],
+      `Hi ${input.name}, we received your request. Our team will review it and contact you soon.`,
+      fields
     )
   });
 }

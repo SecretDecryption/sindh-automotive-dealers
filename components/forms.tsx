@@ -74,15 +74,32 @@ export function SubmitButton({ children, disabled = false }: { children: React.R
   );
 }
 
-function FormMessage({ status, message }: { status: "idle" | "loading" | "success" | "error"; message: string }) {
+function FormMessage({
+  status,
+  message,
+  successTitle = "Request received"
+}: {
+  status: "idle" | "loading" | "success" | "error";
+  message: string;
+  successTitle?: string;
+}) {
   if (!message) {
     return null;
   }
 
   return (
-    <p className={`rounded-md px-4 py-3 text-sm font-bold ${status === "success" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-racing"}`}>
-      {message}
-    </p>
+    <div
+      role="status"
+      aria-live="polite"
+      className={`rounded-md border px-4 py-4 ${
+        status === "success"
+          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+          : "border-red-200 bg-red-50 text-racing"
+      }`}
+    >
+      {status === "success" && <p className="text-base font-black">{successTitle}</p>}
+      <p className={`${status === "success" ? "mt-1" : ""} text-sm font-bold leading-6`}>{message}</p>
+    </div>
   );
 }
 
@@ -102,7 +119,6 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
 
   useEffect(() => {
     setTime("");
-    setMessage("");
     setAvailabilityReady(false);
 
     if (!date) {
@@ -169,7 +185,11 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
       }
 
       setStatus("success");
-      setMessage("Your test drive request is booked. Check your email for confirmation details.");
+      setMessage(
+        `Your test drive has been successfully scheduled. A confirmation email has been sent to ${String(
+          payload.email
+        )}. If it does not arrive within a few minutes, please check your junk or spam folder.`
+      );
       setBookedTimes((current) => [...current, time]);
       form.reset();
       setDate("");
@@ -201,7 +221,19 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
         </label>
         <label className="grid gap-2 text-sm font-bold text-ink dark:text-white">
           Preferred Date
-          <input className={inputClass} name="date" type="date" min={minDate} value={date} onChange={(event) => setDate(event.target.value)} required />
+          <input
+            className={inputClass}
+            name="date"
+            type="date"
+            min={minDate}
+            value={date}
+            onChange={(event) => {
+              setStatus("idle");
+              setMessage("");
+              setDate(event.target.value);
+            }}
+            required
+          />
         </label>
         <label className="grid gap-2 text-sm font-bold text-ink dark:text-white">
           Preferred Time
@@ -237,7 +269,7 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
           </select>
         </label>
       </div>
-      <FormMessage status={status} message={message} />
+      <FormMessage status={status} message={message} successTitle="Booking confirmed" />
       <button
         type="submit"
         disabled={status === "loading" || !availabilityReady || !date || !time || availableSlots.length === 0}
