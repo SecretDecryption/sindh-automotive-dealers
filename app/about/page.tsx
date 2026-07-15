@@ -22,8 +22,17 @@ export default function AboutPage() {
               Our mission is simple: connect drivers with dependable vehicles and make every step of the dealership visit feel clear and confident.
             </p>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-luxury">
-            <Image src="https://images.unsplash.com/photo-1562141961-cc4bc3476b8d?auto=format&fit=crop&w=1400&q=80" alt="Luxury dealership showroom" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+          <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-black/10 bg-white p-8 shadow-luxury sm:p-12 dark:border-white/10">
+            <div className="absolute inset-x-0 top-0 h-1 bg-racing" />
+            <Image
+              src="/sindh-logo.png"
+              alt="Sindh Automotive Dealers logo"
+              width={1033}
+              height={421}
+              sizes="(max-width: 1024px) 85vw, 42vw"
+              className="h-auto w-full object-contain"
+              priority
+            />
           </div>
         </div>
 
