@@ -261,7 +261,7 @@ export function BookingForm({ selectedVehicle }: { selectedVehicle?: string }) {
           Vehicle
           <select className={inputClass} name="vehicle" defaultValue={selectedVehicle ?? ""} required>
             <option value="">Select a vehicle</option>
-            {vehicles.map((vehicle) => (
+            {vehicles.filter((vehicle) => vehicle.badge?.toLowerCase() !== "sold").map((vehicle) => (
               <option key={vehicle.id} value={vehicle.id}>
                 {vehicle.year} {vehicle.make} {vehicle.model}
               </option>

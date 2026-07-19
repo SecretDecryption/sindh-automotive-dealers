@@ -5,7 +5,8 @@ import type { Vehicle } from "@/lib/types";
 import { formatCurrency, formatMileage } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle, featured = false }: { vehicle: Vehicle; featured?: boolean }) {
-  const conditionLabel = vehicle.priceNote?.toLowerCase().includes("as-is") ? "As-Is" : "Inspected";
+  const conditionLabel = vehicle.badge ?? (vehicle.priceNote?.toLowerCase().includes("as-is") ? "As-Is" : "Inspected");
+  const isSold = vehicle.badge?.toLowerCase() === "sold";
 
   return (
     <article className="group overflow-hidden rounded-lg border border-black/10 bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-luxury dark:border-white/10 dark:bg-zinc-950">
@@ -46,8 +47,8 @@ export function VehicleCard({ vehicle, featured = false }: { vehicle: Vehicle; f
           <Link href={`/inventory/${vehicle.id}`} className="rounded-md bg-ink px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-racing dark:bg-white dark:text-ink dark:hover:bg-racing dark:hover:text-white">
             View Details
           </Link>
-          <Link href={`/booking?vehicle=${vehicle.id}`} className="rounded-md border border-black/15 px-4 py-3 text-center text-sm font-bold text-ink transition hover:border-racing hover:text-racing dark:border-white/15 dark:text-white">
-            Book Test Drive
+          <Link href={isSold ? "/contact" : `/booking?vehicle=${vehicle.id}`} className="rounded-md border border-black/15 px-4 py-3 text-center text-sm font-bold text-ink transition hover:border-racing hover:text-racing dark:border-white/15 dark:text-white">
+            {isSold ? "Contact Dealer" : "Book Test Drive"}
           </Link>
         </div>
       </div>

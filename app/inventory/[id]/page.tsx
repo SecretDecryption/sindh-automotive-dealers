@@ -43,6 +43,8 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
     notFound();
   }
 
+  const isSold = vehicle.badge?.toLowerCase() === "sold";
+
   const specs = [
     { label: "Price", value: formatCurrency(vehicle.price), icon: Shield },
     { label: "Mileage", value: formatMileage(vehicle.mileage), icon: Gauge },
@@ -73,16 +75,18 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
           </div>
 
           <aside className="h-fit rounded-lg border border-black/10 bg-white p-6 shadow-card dark:border-white/10 dark:bg-zinc-950">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-racing">Available Inventory</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-racing">{isSold ? "Sold Vehicle" : "Available Inventory"}</p>
             <h1 className="mt-3 text-3xl font-black text-ink dark:text-white">
               {vehicle.year} {vehicle.make} {vehicle.model}
             </h1>
             <p className="mt-4 text-4xl font-black text-racing">{formatCurrency(vehicle.price)}</p>
             {vehicle.priceNote ? <p className="mt-2 text-sm font-bold text-zinc-500 dark:text-zinc-400">{vehicle.priceNote}</p> : null}
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <Link href={`/booking?vehicle=${vehicle.id}`} className="rounded-md bg-racing px-5 py-3 text-center text-sm font-black text-white shadow-card transition hover:bg-red-700">
-                Book Test Drive
-              </Link>
+              {!isSold ? (
+                <Link href={`/booking?vehicle=${vehicle.id}`} className="rounded-md bg-racing px-5 py-3 text-center text-sm font-black text-white shadow-card transition hover:bg-red-700">
+                  Book Test Drive
+                </Link>
+              ) : null}
               <Link href="/contact" className="rounded-md border border-black/15 px-5 py-3 text-center text-sm font-black text-ink transition hover:border-racing hover:text-racing dark:border-white/15 dark:text-white">
                 Contact Dealer
               </Link>
