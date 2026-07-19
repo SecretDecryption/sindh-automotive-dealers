@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CheckCircle2, Fuel, Gauge, Palette, Settings, Shield, Wrench } from "lucide-react";
 import { ContactForm } from "@/components/forms";
+import { VehicleGallery } from "@/components/vehicle-gallery";
 import { shareImage } from "@/lib/site";
 import { formatCurrency, formatMileage, getVehicle, vehicles } from "@/lib/vehicles";
 
@@ -61,18 +61,10 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
     <section className="bg-zinc-50 px-4 py-10 sm:px-6 lg:px-8 dark:bg-zinc-900">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-zinc-200 shadow-luxury">
-              <Image src={vehicle.images[0]} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} fill priority sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover" />
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-4">
-              {vehicle.images.map((image, index) => (
-                <div key={image} className="relative aspect-[16/10] overflow-hidden rounded-lg bg-zinc-200">
-                  <Image src={image} alt={`${vehicle.make} ${vehicle.model} gallery ${index + 1}`} fill sizes="50vw" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
+          <VehicleGallery
+            images={vehicle.images}
+            vehicleName={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+          />
 
           <aside className="h-fit rounded-lg border border-black/10 bg-white p-6 shadow-card dark:border-white/10 dark:bg-zinc-950">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-racing">{isSold ? "Sold Vehicle" : "Available Inventory"}</p>
