@@ -4,6 +4,10 @@ export const dealer = {
   website: "https://www.sindhautomotivedealers.ca/",
   websiteLabel: "sindhautomotivedealers.ca",
   leadEmail: "sindhautomotivedealer@gmail.com",
+  social: {
+    tiktok: "https://www.tiktok.com/@sindhautomotive",
+    tiktokLabel: "@sindhautomotive"
+  },
   phoneDisplay: "(647) 267-9060",
   phoneHref: "tel:+16472679060",
   address: "1392 Colborne St E, Brantford, ON N3T 5M1",

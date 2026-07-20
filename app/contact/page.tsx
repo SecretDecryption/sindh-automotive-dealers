@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Clock, Globe2, MapPin, Phone } from "lucide-react";
+import { Clock, Globe2, MapPin, Music2, Phone } from "lucide-react";
 import { ContactForm } from "@/components/forms";
 import { MapEmbed } from "@/components/map";
 import { dealer } from "@/lib/dealer";
@@ -13,6 +13,7 @@ export default function ContactPage() {
   const contactItems = [
     { icon: Phone, label: "Phone", value: dealer.phoneDisplay, href: dealer.phoneHref },
     { icon: Globe2, label: "Website", value: dealer.websiteLabel, href: dealer.website },
+    { icon: Music2, label: "TikTok", value: dealer.social.tiktokLabel, href: dealer.social.tiktok },
     { icon: MapPin, label: "Address", value: dealer.address, href: dealer.mapsUrl },
     { icon: Clock, label: "Business Hours", value: `${dealer.hours.weekday}, ${dealer.hours.saturday}, ${dealer.hours.sunday}` }
   ];

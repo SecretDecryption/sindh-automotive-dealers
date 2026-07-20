@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Moon, Music2, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "./theme-provider";
 import { dealer } from "@/lib/dealer";
@@ -54,6 +54,16 @@ export function Header() {
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+          <a
+            href={dealer.social.tiktok}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden h-10 w-10 place-items-center rounded-md border border-black/10 text-ink transition hover:border-racing hover:text-racing sm:grid dark:border-white/15 dark:text-white"
+            aria-label="Follow Sindh Automotive Dealers on TikTok"
+            title="TikTok"
+          >
+            <Music2 size={18} />
+          </a>
           <Link href="/booking" className="hidden rounded-md bg-racing px-4 py-2 text-sm font-bold text-white shadow-card transition hover:bg-red-700 sm:inline-flex">
             Book Test Drive
           </Link>
@@ -81,6 +91,16 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href={dealer.social.tiktok}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 rounded-md px-4 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-white/10"
+            >
+              <Music2 size={18} className="text-racing" />
+              TikTok {dealer.social.tiktokLabel}
+            </a>
             <Link href="/booking" onClick={() => setOpen(false)} className="rounded-md bg-racing px-4 py-3 text-sm font-bold text-white">
               Book Test Drive
             </Link>

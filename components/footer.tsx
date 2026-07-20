@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, Globe2, MapPin, Phone } from "lucide-react";
+import { Clock, Globe2, MapPin, Music2, Phone } from "lucide-react";
 import { LogoMark } from "./logo-mark";
 import { dealer } from "@/lib/dealer";
 
@@ -27,6 +27,7 @@ export function Footer() {
             <a href={dealer.phoneHref} className="flex gap-2 hover:text-white"><Phone size={16} className="text-racing" /> {dealer.phoneDisplay}</a>
             <a href={dealer.website} className="flex gap-2 hover:text-white" target="_blank" rel="noreferrer"><Globe2 size={16} className="text-racing" /> {dealer.websiteLabel}</a>
             <a href={dealer.mapsUrl} className="flex gap-2 hover:text-white" target="_blank" rel="noreferrer"><MapPin size={16} className="text-racing" /> {dealer.addressShort}</a>
+            <a href={dealer.social.tiktok} className="flex gap-2 hover:text-white" target="_blank" rel="noreferrer"><Music2 size={16} className="text-racing" /> TikTok {dealer.social.tiktokLabel}</a>
           </div>
         </div>
         <div>
