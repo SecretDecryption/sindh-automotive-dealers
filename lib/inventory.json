@@ -1,5 +1,52 @@
 [
   {
+    "id": "mazda3-gs-hatchback-2021",
+    "year": 2021,
+    "make": "Mazda",
+    "model": "Mazda3 GS Hatchback",
+    "price": 15999,
+    "priceNote": "+ HST and licensing; + $499 safety certificate",
+    "mileage": 149101,
+    "transmission": "Manual",
+    "fuelType": "Gasoline",
+    "drivetrain": "FWD",
+    "vin": "Available upon request",
+    "exteriorColor": "White",
+    "interiorColor": "Black",
+    "engine": "2.5L 4-cylinder",
+    "description": "Clean title and safety inspected. This 2021 Mazda3 GS Hatchback pairs a responsive 2.5L engine with a 6-speed manual transmission, a refined black interior, and modern driver-assistance technology. Safety certificate available for $499.",
+    "features": [
+      "6-Speed Manual Transmission",
+      "Blind Spot Monitoring",
+      "Rear View Camera",
+      "Lane Keep Assist",
+      "LED Headlights",
+      "Sunroof",
+      "Heated Front Seats",
+      "18-inch Alloy Wheels"
+    ],
+    "images": [
+      "/vehicles/mazda3-gs-hatchback-2021/01-front-facing.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/02-front-angle.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/03-front-side.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/04-driver-side.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/05-side-view.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/06-rear-angle.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/07-front-grille.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/08-alloy-wheel.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/09-driver-interior.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/10-manual-shifter.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/11-front-seats.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/12-rear-seats.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/13-rear-headrests.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/14-driver-door.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/15-door-controls.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/16-sunroof.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/17-infotainment-climate.jpeg",
+      "/vehicles/mazda3-gs-hatchback-2021/18-engine-bay.jpeg"
+    ]
+  },
+  {
     "id": "dodge-journey-sxt-2012",
     "year": 2012,
     "make": "Dodge",
@@ -476,42 +523,6 @@
       "/vehicles/volkswagen-tiguan-2012/07-cargo.jpeg",
       "/vehicles/volkswagen-tiguan-2012/08-dashboard.jpeg",
       "/vehicles/volkswagen-tiguan-2012/09-engine-bay.jpeg"
-    ]
-  },
-  {
-    "id": "nissan-pathfinder-2014",
-    "year": 2014,
-    "make": "Nissan",
-    "model": "Pathfinder SL",
-    "price": 6999,
-    "priceNote": "+ $499 safety certificate",
-    "mileage": 198000,
-    "transmission": "Automatic",
-    "fuelType": "Gasoline",
-    "drivetrain": "4WD",
-    "vin": "Available upon request",
-    "exteriorColor": "Blue",
-    "interiorColor": "Black",
-    "engine": "3.5L V6",
-    "description": "Clean Carfax, well maintained, and safety inspected. This Nissan Pathfinder SL is a practical 7-passenger SUV with 4WD capability and family-ready comfort.",
-    "features": [
-      "7 Passenger Seating",
-      "Backup Camera",
-      "Navigation",
-      "Leatherette Seats",
-      "Heated Seats",
-      "Safety Inspected"
-    ],
-    "images": [
-      "/vehicles/nissan-pathfinder-2014/01-front-facing.jpeg",
-      "/vehicles/nissan-pathfinder-2014/02-front-angle.jpeg",
-      "/vehicles/nissan-pathfinder-2014/03-front-side.jpeg",
-      "/vehicles/nissan-pathfinder-2014/04-rear-facing.jpeg",
-      "/vehicles/nissan-pathfinder-2014/05-rear-angle.jpeg",
-      "/vehicles/nissan-pathfinder-2014/06-front-interior.jpeg",
-      "/vehicles/nissan-pathfinder-2014/07-dashboard.jpeg",
-      "/vehicles/nissan-pathfinder-2014/08-backup-camera.jpeg",
-      "/vehicles/nissan-pathfinder-2014/engine-front.jpg"
     ]
   },
   {
